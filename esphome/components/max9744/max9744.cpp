@@ -1,21 +1,21 @@
-#include "mcp47a1.h"
+#include "max9744.h"
 #include "esphome/core/helpers.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
-namespace mcp47a1 {
+namespace max9744 {
 
-static const char *const TAG = "mcp47a1";
+static const char *const TAG = "max9744";
 
-void MCP47A1::dump_config() {
-  ESP_LOGCONFIG(TAG, "MCP47A1 Output:");
+void MAX9744::dump_config() {
+  ESP_LOGCONFIG(TAG, "MAX9744 Output:");
   LOG_I2C_DEVICE(this);
 }
 
-void MCP47A1::write_state(float state) {
-  const uint8_t value = remap(state, 0.0f, 1.0f, 63, 0);
+void MAX9744::write_state(float state) {
+  const uint8_t value = remap(state, 0.0f, 1.0f, 0, 63);
   this->write_byte(0, value);
 }
 
-}  // namespace mcp47a1
+}  // namespace max9744
 }  // namespace esphome
