@@ -5,13 +5,13 @@
 #include "esphome/core/component.h"
 
 namespace esphome {
-namespace mcp47a1 {
+namespace max9744 {
 
-class MCP47A1 : public Component, public output::FloatOutput, public i2c::I2CDevice {
+class MAX9744 : public Component, public output::FloatOutput, public i2c::I2CDevice {
  public:
   void dump_config() override;
   void write_state(float state) override;
 };
 
-}  // namespace mcp47a1
+}  // namespace max9744
 }  // namespace esphome
