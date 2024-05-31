@@ -8,7 +8,7 @@ from esphome.const import (
 )
 
 he60r2_ns = cg.esphome_ns.namespace("he60r2")
-HE60r2Cover = he60r2_ns.class_("HE60rCover2", cover.Cover, cg.Component)
+HE60r2Cover = he60r2_ns.class_("HE60r2Cover", cover.Cover, cg.Component)
 
 CONFIG_SCHEMA = (
     cover.COVER_SCHEMA.extend(uart.UART_DEVICE_SCHEMA)
