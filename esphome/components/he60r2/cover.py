@@ -7,15 +7,15 @@ from esphome.const import (
     CONF_OPEN_DURATION,
 )
 
-he60r_ns = cg.esphome_ns.namespace("he60r")
-HE60rCover = he60r_ns.class_("HE60rCover", cover.Cover, cg.Component)
+he60r2_ns = cg.esphome_ns.namespace("he60r2")
+HE60r2Cover = he60r2_ns.class_("HE60rCover2", cover.Cover, cg.Component)
 
 CONFIG_SCHEMA = (
     cover.COVER_SCHEMA.extend(uart.UART_DEVICE_SCHEMA)
     .extend(cv.COMPONENT_SCHEMA)
     .extend(
         {
-            cv.GenerateID(): cv.declare_id(HE60rCover),
+            cv.GenerateID(): cv.declare_id(HE60r2Cover),
             cv.Optional(
                 CONF_OPEN_DURATION, default="15s"
             ): cv.positive_time_period_milliseconds,
@@ -27,7 +27,7 @@ CONFIG_SCHEMA = (
 )
 
 FINAL_VALIDATE_SCHEMA = uart.final_validate_device_schema(
-    "he60r",
+    "he60r2",
     baud_rate=1200,
     require_tx=True,
     require_rx=True,
