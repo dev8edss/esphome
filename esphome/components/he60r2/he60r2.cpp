@@ -123,7 +123,7 @@ void HE60r2Cover::process_rx_(uint8_t data) {
   }
 }
 
-void HE60rCover::update_() {
+void HE60r2Cover::update_() {
   if (toggles_needed_ != 0) {
     if ((this->counter_++ & 0x3) == 0) {
       toggles_needed_--;
@@ -148,7 +148,7 @@ void HE60rCover::update_() {
   }
 }
 
-void HE60rCover::loop() {
+void HE60r2Cover::loop() {
   uint8_t data;
 
   while (this->available() > 0) {
@@ -158,7 +158,7 @@ void HE60rCover::loop() {
   }
 }
 
-void HE60rCover::control(const CoverCall &call) {
+void HE60r2Cover::control(const CoverCall &call) {
   if (call.get_stop()) {
     this->start_direction_(COVER_OPERATION_IDLE);
   } else if (call.get_toggle().has_value()) {
@@ -186,7 +186,7 @@ void HE60rCover::control(const CoverCall &call) {
  * for partial open/close requests - endstops are used for full open/close.
  * @return True if the cover has reached or passed its target position. For full open/close target always return false.
  */
-bool HE60rCover::is_at_target_() const {
+bool HE60r2Cover::is_at_target_() const {
   // equality of floats is fraught with peril - this is reliable since the values are 0.0 or 1.0 which are
   // exactly representable.
   if (this->target_position_ == COVER_OPEN || this->target_position_ == COVER_CLOSED)
@@ -203,7 +203,7 @@ bool HE60rCover::is_at_target_() const {
       return true;
   }
 }
-void HE60rCover::start_direction_(CoverOperation dir) {
+void HE60r2Cover::start_direction_(CoverOperation dir) {
   this->last_command_ = dir;
   if (this->current_operation == dir)
     return;
@@ -228,7 +228,7 @@ void HE60rCover::start_direction_(CoverOperation dir) {
   this->start_dir_time_ = millis();
 }
 
-void HE60rCover::recompute_position_() {
+void HE60r2Cover::recompute_position_() {
   if (this->current_operation == COVER_OPERATION_IDLE)
     return;
 
@@ -261,5 +261,5 @@ void HE60rCover::recompute_position_() {
   }
 }
 
-}  // namespace he60r
+}  // namespace he60r2
 }  // namespace esphome
