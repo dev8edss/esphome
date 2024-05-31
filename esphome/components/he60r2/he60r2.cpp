@@ -11,7 +11,7 @@ static const uint8_t TOGGLE_BYTE = 0x30;
 
 using namespace esphome::cover;
 
-void HE60rCover::setup() {
+void HE60r2Cover::setup() {
   auto restore = this->restore_state_();
 
   if (restore.has_value()) {
