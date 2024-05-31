@@ -1,11 +1,11 @@
-#include "he60r.h"
+#include "he60r2.h"
 #include "esphome/core/hal.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
-namespace he60r {
+namespace he60r2 {
 
-static const char *const TAG = "he60r.cover";
+static const char *const TAG = "he60r2.cover";
 static const uint8_t QUERY_BYTE = 0x38;
 static const uint8_t TOGGLE_BYTE = 0x30;
 
@@ -26,7 +26,7 @@ void HE60rCover::setup() {
   this->set_interval(300, [this]() { this->update_(); });
 }
 
-CoverTraits HE60rCover::get_traits() {
+CoverTraits HE60r2Cover::get_traits() {
   auto traits = CoverTraits();
   traits.set_supports_stop(true);
   traits.set_supports_position(true);
@@ -35,9 +35,9 @@ CoverTraits HE60rCover::get_traits() {
   return traits;
 }
 
-void HE60rCover::dump_config() {
-  LOG_COVER("", "HE60R Cover", this);
-  this->check_uart_settings(1200, 1, uart::UART_CONFIG_PARITY_EVEN, 8);
+void HE60r2Cover::dump_config() {
+  LOG_COVER("", "HE60R2 Cover", this);
+  this->check_uart_settings(1200, 1, uart::UART_CONFIG_PARITY_ODD, 8);
   ESP_LOGCONFIG(TAG, "  Open Duration: %.1fs", this->open_duration_ / 1e3f);
   ESP_LOGCONFIG(TAG, "  Close Duration: %.1fs", this->close_duration_ / 1e3f);
   auto restore = this->restore_state_();
@@ -45,7 +45,7 @@ void HE60rCover::dump_config() {
     ESP_LOGCONFIG(TAG, "  Saved position %d%%", (int) (restore->position * 100.f));
 }
 
-void HE60rCover::endstop_reached_(CoverOperation operation) {
+void HE60r2Cover::endstop_reached_(CoverOperation operation) {
   const uint32_t now = millis();
 
   this->set_current_operation_(COVER_OPERATION_IDLE);
@@ -62,7 +62,7 @@ void HE60rCover::endstop_reached_(CoverOperation operation) {
   }
 }
 
-void HE60rCover::set_current_operation_(cover::CoverOperation operation) {
+void HE60r2Cover::set_current_operation_(cover::CoverOperation operation) {
   if (this->current_operation != operation) {
     this->current_operation = operation;
     if (operation != COVER_OPERATION_IDLE)
@@ -71,7 +71,7 @@ void HE60rCover::set_current_operation_(cover::CoverOperation operation) {
   }
 }
 
-void HE60rCover::process_rx_(uint8_t data) {
+void HE60r2Cover::process_rx_(uint8_t data) {
   ESP_LOGV(TAG, "Process RX data %X", data);
   if (!this->query_seen_) {
     this->query_seen_ = data == QUERY_BYTE;
