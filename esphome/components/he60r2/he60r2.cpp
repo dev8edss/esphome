@@ -37,7 +37,7 @@ CoverTraits HE60r2Cover::get_traits() {
 
 void HE60r2Cover::dump_config() {
   LOG_COVER("", "HE60R2 Cover", this);
-  this->check_uart_settings(1200, 1, uart::UART_CONFIG_PARITY_ODD, 8);
+  this->check_uart_settings(1200, 1, 8);
   ESP_LOGCONFIG(TAG, "  Open Duration: %.1fs", this->open_duration_ / 1e3f);
   ESP_LOGCONFIG(TAG, "  Close Duration: %.1fs", this->close_duration_ / 1e3f);
   auto restore = this->restore_state_();
